@@ -13,6 +13,12 @@ This project provide a async DNS resolver.
 pip install os-scrapy-aio-resolver
 ```
 
+You can run example spider directly in the project root path
+
+```
+scrapy crawl example
+```
+
 ## Usage
 
 ### Settings

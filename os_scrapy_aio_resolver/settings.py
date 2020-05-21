@@ -15,7 +15,7 @@ SPIDER_MODULES = ["os_scrapy_aio_resolver.spiders"]
 NEWSPIDER_MODULE = "os_scrapy_aio_resolver.spiders"
 
 DNS_RESOLVER = "os_scrapy_aio_resolver.AsyncResolver"
-
+TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = 'os_scrapy_aio_resolver (+http://www.yourdomain.com)'
