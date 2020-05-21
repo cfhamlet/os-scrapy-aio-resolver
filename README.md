@@ -90,3 +90,5 @@ tox
 ## License
 
 MIT licensed.
+=======
+# os-scrapy-aio-resolver
