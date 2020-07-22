@@ -41,10 +41,10 @@ class AsyncResolver(object):
             else:
                 r = await self.reslover.gethostbyname(name, socket.AF_INET)
         except aiodns.error.DNSError as e:
-            logger.error(f"resolve {name} {e} {time.time()-s:.2f}")
+            logger.error(f"resolve {name} {e} {time.time()-s:.5f}")
             raise DNSLookupError()
         result = r.addresses[0]
-        logger.debug(f"resolve {name} {result} {time.time()-s:.2f}")
+        logger.debug(f"resolve {name} {result} {time.time()-s:.5f}")
         dnscache[name] = result
         return result
 
