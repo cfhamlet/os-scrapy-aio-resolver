@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import socket
 import time
@@ -34,6 +35,7 @@ class AsyncResolver(object):
 
     async def _getHostByName(self, name, timeout):
         s = time.time()
+        r = None
         try:
             if timeout and timeout > 0:
                 with async_timeout.timeout(timeout):
@@ -43,6 +45,10 @@ class AsyncResolver(object):
         except aiodns.error.DNSError as e:
             logger.error(f"resolve {name} {e} {time.time()-s:.5f}")
             raise DNSLookupError()
+        except asyncio.TimeoutError as e:
+            logger.error(f"resolve {name} timeout({timeout}) {time.time()-s:.5f}")
+            raise DNSLookupError()
+
         result = r.addresses[0]
         logger.debug(f"resolve {name} {result} {time.time()-s:.5f}")
         dnscache[name] = result
