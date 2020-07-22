@@ -1,5 +1,6 @@
 import logging
 import socket
+import time
 
 import aiodns
 import async_timeout
@@ -32,6 +33,7 @@ class AsyncResolver(object):
         return d
 
     async def _getHostByName(self, name, timeout):
+        s = time.time()
         try:
             if timeout and timeout > 0:
                 with async_timeout.timeout(timeout):
@@ -39,9 +41,10 @@ class AsyncResolver(object):
             else:
                 r = await self.reslover.gethostbyname(name, socket.AF_INET)
         except aiodns.error.DNSError as e:
-            raise DNSLookupError
+            logger.error(f"resolve {name} {e} {time.time()-s:.2f}")
+            raise DNSLookupError()
         result = r.addresses[0]
-        logger.debug(f"resolve {name} {result}")
+        logger.debug(f"resolve {name} {result} {time.time()-s:.2f}")
         dnscache[name] = result
         return result
 
